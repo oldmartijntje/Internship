@@ -1,0 +1,15 @@
+<h1 class="title">Hello World!</h1>
+<div class="theme-settings">
+  <div class="themes-boxes">
+    <div *ngFor="let footerLink of footerLinks" class="themes-box"
+      (click)="quickNavigation(footerLinksInfo[footerLink]['url'])">
+      <div class="textBox">
+        <h2 *ngIf="footerLinksInfo[footerLink]['title'] != ''">{{ footerLinksInfo[footerLink]["title"] }}</h2>
+        <h2 *ngIf="footerLinksInfo[footerLink]['title'] == ''">{{ missingTitle }}</h2>
+        <h3 *ngIf="footerLinksInfo[footerLink]['description'] != ''">{{ footerLinksInfo[footerLink]['description'] }}
+        </h3>
+        <h3 *ngIf="footerLinksInfo[footerLink]['description'] == ''">{{ missingDescription }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

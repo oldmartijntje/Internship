@@ -1,0 +1,16 @@
+<h1 class="title">Welcome to settings, we dont have much here:</h1>
+<div class="theme-settings">
+  <h1 class="themes-text">Themes:</h1>
+  <div class="themes-boxes">
+    <div *ngFor="let theme of themes" class="themes-box" (click)="changeTheme(theme.name)">
+      <div class="theme-box-img-container">
+        <img class="theme-box-img" src="assets\images\appTextures\{{theme.name}}.png"
+          onerror="this.src='assets/images/appTextures/textureMissing.png'" alt="">
+      </div>
+      <h2 *ngIf="theme.title != ''">{{ theme.title }}</h2>
+      <h2 *ngIf="theme.title == ''">{{ missingTitle }}</h2>
+      <h3 *ngIf="theme.description != ''">{{ theme.description }}</h3>
+      <h3 *ngIf="theme.description == ''">{{ missingDescription }}</h3>
+    </div>
+  </div>
+</div>

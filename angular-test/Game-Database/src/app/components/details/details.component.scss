@@ -1,0 +1,118 @@
+.details-wrapper {
+  max-width: 900px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.details {
+  ::ng-deep mwl-gauge {
+    width: 150px;
+    height: 150px;
+    display: block;
+    padding: 10px;
+
+    .dial {
+      stroke-width: 10;
+    }
+
+    .value {
+      stroke-dasharray: none;
+      stroke-width: 13;
+    }
+
+    .value-text {
+      fill: var(--text-main);
+      font-weight: 700;
+      font-size: 24px;
+    }
+  }
+
+  .game-gauge {
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    &-label {
+      font-size: 20px;
+      color: var(--text-main);
+      position: relative;
+      bottom: 60px;
+    }
+  }
+}
+
+.game {
+  &-banner {
+    height: 442px;
+    overflow: hidden;
+
+    &-img {
+      width: 100%;
+      filter: blur(5px);
+    }
+  }
+
+  &-content {
+    text-align: center;
+    position: relative;
+    top: -200px;
+  }
+
+  &-header {
+    &-title {
+      font-size: 70px;
+      color: var(--text-main);
+      font-weight: 700;
+      line-height: 70px;
+      white-space: nowrap;
+    }
+
+    &-release-date {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    &-genres {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+text-shadow: -1px -1px 0 var(--text-shadow),
+1px -1px 0 var(--text-shadow),
+-1px 1px 0 var(--text-shadow),
+1px 1px 0 var(--text-shadow);
+  }
+}
+
+.quick-navigation {
+  &-right {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-right: 20px;
+  }
+
+  &-left {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  margin-right: 20px;
+  border-radius: 5px;
+
+}
+
+button {
+  border: none;
+  outline: none;
+  background: var(--color1-1);
+  padding: 10px;
+    color: var(--text-on-color1);
+  font-weight: 700;
+  transition-duration: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color1-1);
+      background-color: var(--color1-4);
+
+  }
+}

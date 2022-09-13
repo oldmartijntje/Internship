@@ -1,0 +1,34 @@
+<h1 class="title">About:</h1>
+<div class="theme-settings">
+  <h1 class="themes-text">Thanks to:</h1>
+  <div class="themes-boxes">
+    <div *ngFor="let thisAbout of about" class="themes-box" (click)="onClick(aboutInfo[thisAbout]['url'])">
+      <div class="theme-box-img-container">
+        <img class="theme-box-img" src="assets\images\appTextures\{{thisAbout}}.png"
+          onerror="this.src='assets/images/appTextures/textureMissing.png'" alt="">
+      </div>
+      <div class="textBox">
+        <h2 *ngIf="aboutInfo[thisAbout]['title'] != ''">{{ aboutInfo[thisAbout]["title"] }}</h2>
+        <h2 *ngIf="aboutInfo[thisAbout]['title'] == ''">{{ missingTitle }}</h2>
+        <h3 *ngIf="aboutInfo[thisAbout]['description'] != ''">{{ aboutInfo[thisAbout]['description'] }}</h3>
+        <h3 *ngIf="aboutInfo[thisAbout]['description'] == ''">{{ missingDescription }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="theme-settings">
+  <h1 class="themes-text">Information:</h1>
+  <div class="themes-boxes">
+    <div *ngFor="let thisAboutMe of aboutMe" class="themes-box" (click)="onClick(aboutMeInfo[thisAboutMe]['url'])">
+      <div class="theme-box-img-container">
+        <img class="theme-box-img" src="assets\images\appTextures\{{thisAboutMe}}.png"
+          onerror="this.src='assets/images/appTextures/textureMissing.png'" alt="">
+      </div>
+      <div class="textBox">
+        <h2 *ngIf="aboutMeInfo[thisAboutMe]['title'] != ''">{{ aboutMeInfo[thisAboutMe]["title"] }}</h2>
+        <h2 *ngIf="aboutMeInfo[thisAboutMe]['title'] == ''">{{ missingTitle }}</h2>
+        <h3 *ngIf="aboutMeInfo[thisAboutMe]['description'] != ''">{{ aboutMeInfo[thisAboutMe]['description'] }}</h3>
+        <h3 *ngIf="aboutMeInfo[thisAboutMe]['description'] == ''">{{ missingDescription }}</h3>
+      </div>
+    </div>
+  </div>

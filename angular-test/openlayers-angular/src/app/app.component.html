@@ -1,0 +1,20 @@
+<header _ngcontent-cwb-c14="">
+  <div _ngcontent-cwb-c14="" class="title">
+    Map Viewer - Openlayers Angular
+  </div>
+</header>
+<main>
+  <div class="left-bar"></div>
+
+  <div id="ol-map" class="map-container">
+    <app-map [map]="map"></app-map>
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer" (click)="onClick()"></a>
+      <div id="popup-content">{{text}}</div>
+    </div>
+  </div>
+</main>
+<footer>
+  <app-scaleline [map]="map"></app-scaleline>
+  <app-mouse-position [map]="map" positionTemplate="{x}, {y} m"></app-mouse-position>
+</footer>

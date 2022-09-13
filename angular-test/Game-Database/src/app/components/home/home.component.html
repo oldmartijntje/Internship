@@ -1,0 +1,45 @@
+<div class="filters">
+  <mat-form-field>
+    <mat-label>Sort</mat-label>
+      <mat-select panelClass="sort-select" [(ngModel)]="sort" (selectionChange)="routeUpdate(sort)">
+        <mat-option value="name">Name</mat-option>
+        <mat-option value="-released">Released</mat-option>
+        <mat-option value="-added">Added</mat-option>
+        <mat-option value="-created">Created</mat-option>
+        <mat-option value="-updated">Updated</mat-option>
+        <mat-option value="-rating">Rating</mat-option>
+        <mat-option value="metacritic">Metacritic</mat-option>
+          <mat-option value="none">No filter</mat-option>
+      </mat-select>
+      </mat-form-field>
+</div>
+
+<div class="games">
+<ng-container *ngFor="let game of games">
+  <div class="game" (click)="openGameDetails(game.id)">
+    <div class="game-thumb-container">
+      <img *ngIf="game.background_image" src="{{ game.background_image }}" alt="thumbnail" class="game-thumbnail">
+      <img *ngIf="!game.background_image" src="assets\images\appTextures\textureMissing.png"
+        alt="missing texture texture missing" class="game-thumbnail">
+    </div>
+    <div class="game-description">
+      <p *ngIf="game.name" class="game-name">{{ game.name }}</p>
+      <p *ngIf="!game.name" class="game-name">No Name</p>
+      <div class="game-platforms">
+        <a *ngFor="let gamePlatform of game.parent_platforms"
+          href="https://letmegooglethat.com/?q={{ gamePlatform.platform.slug }}">
+          <img class="game-platform" src="assets\images\platforms\{{ gamePlatform.platform.slug }}.png"
+            alt="{{ gamePlatform.platform.slug }}"></a>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<div class="quick-navigation-bar">
+  <button class="quick-navigation" *ngIf="currentPage > 2" type="button" (click)="navigation(1, false)">Page 1</button>
+  <button class="quick-navigation-left" *ngIf="currentPage != 1" type="button" (click)="navigation(-1)">Page Back</button>
+  <button class="quick-navigation-middle" *ngIf="currentPage != 1" type="button" (click)="randomPage()">Random
+    Page</button>
+  <button class="quick-navigation-left" *ngIf="currentPage == 1" type="button" (click)="randomPage()">Random Page</button>
+  <button class="quick-navigation-right" type="button" (click)="navigation(1)">Next Page</button>
+</div>
+</div>
