@@ -12,6 +12,7 @@ import Style from 'ol/style/Style';
 import Overlay from 'ol/Overlay';
 import { toLonLat } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
+// import GeoJSON from 'ol/format/GeoJSON';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +50,12 @@ export class AppComponent implements OnInit {
         new TileLayer({
           source: new OSM(),
         }),
+        // new VectorLayer({
+        //   source: new VectorSource({
+        //     format: new GeoJSON(),
+        //     url: 'https://test-safetynav.safetyconnect.nl/Bridge/GetBridges',
+        //   }),
+        // }),
       ],
       target: 'map',
       overlays: [this.overlay]

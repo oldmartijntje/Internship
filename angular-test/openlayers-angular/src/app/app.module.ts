@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './components/map/map.component';
 import { ScalelineComponent } from './components/scaleline/scaleline.component';
 import { MousePositionComponent } from './components/mouse-position/mouse-position.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MousePositionComponent } from './components/mouse-position/mouse-positi
   ],
   imports: [
     BrowserModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [CommonModule],
   providers: [DecimalPipe],
