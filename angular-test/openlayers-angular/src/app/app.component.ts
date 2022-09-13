@@ -13,6 +13,8 @@ import Overlay from 'ol/Overlay';
 import { toLonLat } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
 import GeoJSON from 'ol/format/GeoJSON';
+import { bridges } from "./tempBridges";
+import { Bridge } from './bridge';
 
 @Component({
   selector: 'app-root',
@@ -27,8 +29,10 @@ export class AppComponent implements OnInit {
   content;
   overlay: Overlay;
   closer;
+  bridges: Bridge[];
 
   ngOnInit(): void {
+    this.bridges = bridges;
     this.container = document.getElementById('popup');
     this.content = document.getElementById('popup-content');
     this.closer = document.getElementById('popup-closer');
@@ -50,12 +54,12 @@ export class AppComponent implements OnInit {
         new TileLayer({
           source: new OSM(),
         }),
-        new VectorLayer({
-          source: new VectorSource({
-            format: new GeoJSON(),
-            url: 'https://test-safetynav.safetyconnect.nl/Bridge/GetBridges',
-          }),
-        }),
+        // new VectorLayer({
+        //   source: new VectorSource({
+        //     format: new GeoJSON(),
+        //     url: 'https://test-safetynav.safetyconnect.nl/Bridge/GetBridges',
+        //   }),
+        // }),
       ],
       target: 'map',
       overlays: [this.overlay]
@@ -89,6 +93,28 @@ export class AppComponent implements OnInit {
     });
 
 
+    var coordinatesList = [];
+    bridges.forEach((bridge) => {
+      coordinatesList.push(new Feature({
+        geometry: new Point([bridge['location']['coordinates'][0] * 100000, bridge['location']['coordinates'][1] * 100000])
+      }));
+      console.log(bridge['location']['coordinates'])
+    });
+
+    console.log(coordinatesList)
+    var markerLayer = new VectorLayer({
+      style: new Style({
+        image: new Icon({
+          anchor: [0.5, 1],
+          scale: 0.1,
+          src: 'https://www.iconpacks.net/icons/2/free-location-pointer-icon-2961-thumb.png',
+        }),
+      }),
+      source: new VectorSource({
+        features: coordinatesList
+      })
+    });
+    this.map.addLayer(markerLayer);
 
   }
   onClick() {
@@ -98,4 +124,6 @@ export class AppComponent implements OnInit {
   }
 
 }
+
+
 
