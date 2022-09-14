@@ -1,0 +1,8 @@
+f = open("src/app/py/dictString.txt", "r")
+massiveString = f.read()
+f.close()
+splitted = massiveString.split('},{"bridgeId')
+new = '},\n{"bridgeId'.join(splitted)
+n = open("src/app/py/new.txt", "w")
+n.write(new)
+n.close()
