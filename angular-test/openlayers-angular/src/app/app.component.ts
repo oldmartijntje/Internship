@@ -10,11 +10,12 @@ import Icon from 'ol/style/Icon';
 import VectorSource from 'ol/source/Vector';
 import Style from 'ol/style/Style';
 import Overlay from 'ol/Overlay';
-import { toLonLat } from 'ol/proj';
+import { toLonLat, fromLonLat } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
 import GeoJSON from 'ol/format/GeoJSON';
 import { bridges } from "./tempBridges";
 import { Bridge } from './bridge';
+import { Projection } from 'ol/proj';
 
 @Component({
   selector: 'app-root',
@@ -66,10 +67,24 @@ export class AppComponent implements OnInit {
     });
 
     this.map.on('singleclick', (evt) => {
-      var coordinate = evt['coordinate'];
-      var hdms = toStringHDMS(toLonLat(coordinate));
-      this.text = 'You clicked here: ' + hdms;
-      this.overlay.setPosition(coordinate);
+      var feature = this.map.forEachFeatureAtPixel(evt.pixel,
+        function (feature) {
+          return feature;
+        });
+      if (coordinatesList.includes(feature)) {
+        var coordinate = evt['coordinate'];
+        var bridge = this.getBridgeData(feature['values_']['name']);
+        console.log(bridge);
+        this.text = `BrideId: ${feature['values_']['name']}\nisrs: "${bridge.isrs}"\nname: "${bridge.name}"\nLocation type: ${bridge.location.type}\nLocation coordinates: ${bridge.location.coordinates}\nStatus: ${bridge.bridgeStatus}\nlast modification: ${bridge.lastModification}`;
+        this.overlay.setPosition(coordinate);
+      } else {
+        var coordinate = evt['coordinate'];
+        var hdms = toStringHDMS(toLonLat(coordinate));
+        this.text = 'You clicked here: ' + hdms;
+        this.overlay.setPosition(coordinate);
+      }
+      console.log(feature);
+
     });
     this.map.on('dblclick', (evt) => {
       var coordinate = evt['coordinate'];
@@ -85,7 +100,7 @@ export class AppComponent implements OnInit {
           features: [
             new Feature({
               geometry: new Point(coordinate)
-            })
+            }),
           ]
         })
       });
@@ -96,18 +111,17 @@ export class AppComponent implements OnInit {
     var coordinatesList = [];
     bridges.forEach((bridge) => {
       coordinatesList.push(new Feature({
-        geometry: new Point([bridge['location']['coordinates'][0] * 100000, bridge['location']['coordinates'][1] * 100000])
+        geometry: new Point(fromLonLat(bridge['location']['coordinates'])),
+        name: `${bridge.bridgeId}`
       }));
-      console.log(bridge['location']['coordinates'])
     });
 
-    console.log(coordinatesList)
     var markerLayer = new VectorLayer({
       style: new Style({
         image: new Icon({
-          anchor: [0.5, 1],
-          scale: 0.1,
-          src: 'https://www.iconpacks.net/icons/2/free-location-pointer-icon-2961-thumb.png',
+          anchor: [0.5, 0.5],
+          scale: 0.3,
+          src: 'https://www.awicons.com/free-icons/download/object-icons/large-home-icons-by-aha-soft/png/256/Bridge.png',
         }),
       }),
       source: new VectorSource({
@@ -121,6 +135,15 @@ export class AppComponent implements OnInit {
     this.overlay.setPosition(undefined);
     this.closer.blur();
     return false;
+  }
+  getBridgeData(id: string) {
+    var rightBridge;
+    bridges.forEach((bridge) => {
+      if (bridge.bridgeId === Number(id)) {
+        rightBridge = bridge;
+      }
+    });
+    return rightBridge;
   }
 
 }
